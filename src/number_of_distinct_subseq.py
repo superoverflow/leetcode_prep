@@ -20,5 +20,25 @@ rrlrlr
 out put =7
 """
 
+
+
+
 def solve(s: str, n: int, x: int, y: int) -> int:
-    return 0
+    result = set()
+
+    for i in range(len(s) + 1):
+        for j in range(i, len(s) + 1):
+            subseq = s[i:j]
+            if x + move(subseq) == y:
+                result.add(subseq)
+
+    return len(result)
+
+def move(s: str) -> int:
+    result = 0
+    for c in s:
+        if c == 'r':
+            result += 1
+        else:
+            result -= 1
+    return result
