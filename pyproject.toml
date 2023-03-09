@@ -9,6 +9,7 @@ packages = [{include = "leetcode_prep"}]
 [tool.poetry.dependencies]
 python = "^3.10"
 pytest = "*"
+pandas = "^1.5.3"
 
 [build-system]
 requires = ["poetry-core"]
