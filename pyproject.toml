@@ -8,8 +8,12 @@ packages = [{include = "leetcode_prep"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
+black = "*"
 pytest = "*"
 pandas = "^1.5.3"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.1.0"
 
 [build-system]
 requires = ["poetry-core"]
