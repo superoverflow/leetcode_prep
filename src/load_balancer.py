@@ -1,5 +1,6 @@
 from random import Random
 from datetime import datetime
+from abc import abstractmethod, ABC
 
 from typing import Any
 
@@ -9,12 +10,12 @@ class MaxCapacityReachedException(Exception):
 class NoRegisterInstanceException(Exception):
     pass
 
-class BaseInstance:
+class BaseInstance(ABC):
     def __init__(self, address: str):
         self.address = address
 
 
-class BaseLoadBalancer:
+class BaseLoadBalancer(ABC):
     def __init__(self, capacity: int):
         self.capacity = capacity
         self.instances = []
@@ -27,17 +28,22 @@ class BaseLoadBalancer:
         self._validate_maximum_capacity()
         self.instances.append(instance)
 
+    @abstractmethod
+    def _get_instance(self) -> BaseInstance:
+        pass
+
     def get(self) -> BaseInstance:
         if not self.instances:
             raise NoRegisterInstanceException("The load balancer has no registered instance")
-
+        return self._get_instance()
 
 class SimpleInstance(BaseInstance):
     pass
 
 
 class SimpleLoadBalancer(BaseLoadBalancer):
-    pass
+    def _get_instance(self) -> BaseInstance:
+        return self.instances[0]
 
 
 class RandomGetLoadBalancer(BaseLoadBalancer):
@@ -45,7 +51,7 @@ class RandomGetLoadBalancer(BaseLoadBalancer):
         super().__init__(capacity)
         self.randomizer = Random(initial_seed)
 
-    def get(self) -> BaseInstance:
+    def _get_instance(self) -> BaseInstance:
         return self.randomizer.choice(self.instances)
 
 
@@ -59,8 +65,7 @@ class RoundRibbonLoadBalancer(BaseLoadBalancer):
         super().register(instance)
         self.round_ribbon_mod += 1
 
-    def get(self) -> BaseInstance:
-        super().get()
+    def _get_instance(self) -> BaseInstance:
         inst = self.instances[self.round_ribbon_counter % self.round_ribbon_mod]
         self.round_ribbon_counter += 1
         return inst
