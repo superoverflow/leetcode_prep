@@ -5,8 +5,9 @@ If there is a ties, the number appears earlier wins
 
 """
 
+
 def solve(numbers: list[int]) -> list[int]:
-    result = [ len(numbers) ] * len(numbers)
+    result = [len(numbers)] * len(numbers)
 
     for i in range(len(numbers)):
         for j in range(i + 1, len(numbers)):

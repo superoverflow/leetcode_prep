@@ -2,7 +2,7 @@
 
 
 class Item:
-    def __init__(self, name='', price=0):
+    def __init__(self, name="", price=0):
         self.name = name
         self.price = price
 
@@ -11,7 +11,7 @@ class ShoppingCart:
     def __init__(self):
         self.items: list[Item] = []
 
-    def add(self, item:Item) -> None:
+    def add(self, item: Item) -> None:
         self.items.append(item)
 
     def total(self):

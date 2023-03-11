@@ -21,8 +21,6 @@ out put =7
 """
 
 
-
-
 def solve(s: str, n: int, x: int, y: int) -> int:
     result = set()
 
@@ -34,10 +32,11 @@ def solve(s: str, n: int, x: int, y: int) -> int:
 
     return len(result)
 
+
 def move(s: str) -> int:
     result = 0
     for c in s:
-        if c == 'r':
+        if c == "r":
             result += 1
         else:
             result -= 1

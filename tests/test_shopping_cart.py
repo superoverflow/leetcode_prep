@@ -14,9 +14,11 @@ def cart_with_items() -> ShoppingCart:
 
     return cart
 
+
 def test_item_can_get_price():
     item1 = Item(name="Apple", price=1)
     assert item1.price == 1
+
 
 def test_shopping_cart_total(cart_with_items: ShoppingCart):
     assert cart_with_items.total() == 3
